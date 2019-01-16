@@ -224,7 +224,7 @@ zstyle ':prezto:module:tmux:auto-start' remote 'yes'
 # zstyle ':prezto:module:tmux:iterm' integrate 'yes'
 
 # Session name
-zstyle ':prezto:module:tmux:session' name 'SERVER-ZSH'
+zstyle ':prezto:module:tmux:session' name 'S-ZSH'
 
 #
 # Utility
