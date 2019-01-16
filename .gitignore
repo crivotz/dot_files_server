@@ -1,0 +1,16 @@
+#        OS generated files          #
+######################################
+.DS_Store*
+ehthumbs.db
+Thumbs.db
+
+#             Folders                #
+######################################
+/linux/irssi
+
+#              Files                 #
+######################################
+bash_aliases
+ssh_config
+gitconfiglavoro
+gitconfig
