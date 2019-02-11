@@ -11,6 +11,7 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+# zmodload zsh/zprof
 
 # ALIASES
 source $HOME/.zsh_aliases
@@ -72,3 +73,4 @@ export SPACESHIP_RUBY_SYMBOL=' '
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# zprof
