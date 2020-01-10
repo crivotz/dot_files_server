@@ -9,3 +9,4 @@ ln -sf ~/.dot_files_server/zplugin/zshrc ~/.zshrc
 ln -sf ~/.dot_files_server/ranger ~/.config/ranger
 ln -sf ~/.dot_files_server/p10k.zsh ~/.p10k.zsh
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh

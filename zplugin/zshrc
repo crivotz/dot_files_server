@@ -131,7 +131,7 @@ setopt automenu
 setopt vi
 
 # ENV variable
-export EDITOR='vim'
+export EDITOR='nvim'
 export VISUAL=$EDITOR
 export PAGER='less'
 export SHELL='/bin/zsh'
