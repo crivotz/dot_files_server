@@ -1,0 +1,11 @@
+alias ranger="ranger.py"
+alias ls="exa -bh --color=auto"
+alias cat="bat"
+alias l="ls"      l.='ls -d .*'   la='ls -all'   ll='ls -lbt created'  rm='command rm -i'
+alias df='df -h'  du='du -h'      cp='cp -v'   mv='mv -v'      plast="last -20"
+
+# TMUX
+alias ta='tmux attach -t'
+alias tks='tmux kill-session -t'
+alias tl='tmux list-sessions'
+alias ts='tmux new-session -s'
