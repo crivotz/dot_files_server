@@ -1,4 +1,5 @@
 alias ranger="ranger.py"
+alias vim="nvim"
 alias ls="exa -bh --color=auto"
 alias cat="bat"
 alias l="ls"      l.='ls -d .*'   la='ls -all'   ll='ls -lbt created'  rm='command rm -i'
