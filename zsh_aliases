@@ -1,12 +1,35 @@
+# ROUTE PARTICOLARI
+alias route-del-default='sudo ip r del default' 
+# COMANDI ALTERNATIVI
+alias :q="exit"
+alias n="nvim"
 alias ranger="ranger.py"
-alias vim="nvim"
-alias ls="exa -bh --color=auto"
-alias cat="bat"
-alias l="ls"      l.='ls -d .*'   la='ls -all'   ll='ls -lbt created'  rm='command rm -i'
+alias del="trash-put"
+alias tar-comp="_tar_comp"
+alias tar-decomp="_tar_decomp"
+alias ls='exa --git --icons --classify --group-directories-first --time-style=long-iso --group --color-scale'
+# alias cat="bat"
+alias rm='command rm -i'
+# alias diff='bd --delta'
 alias df='df -h'  du='du -h'      cp='cp -v'   mv='mv -v'      plast="last -20"
+alias tx='tmux new -s λ'
 
 # TMUX
 alias ta='tmux attach -t'
 alias tks='tmux kill-session -t'
 alias tl='tmux list-sessions'
 alias ts='tmux new-session -s'
+
+# RAILS
+alias ror='bundle exec rails'
+alias rorc='bundle exec rails console'
+alias rordm='bundle exec rails db:migrate'
+alias rordr='bundle exec rails db:rollback'
+alias rorg='bundle exec rails generate'
+alias rorl='tail -f "$(ruby-app-root)/log/development.log"'
+alias rorlc='bundle exec rake log:clear'
+alias rors='bundle exec rails server'
+
+# GIT
+alias gs='git status'
+alias gm='git commit -m'
