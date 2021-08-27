@@ -1,25 +1,13 @@
 [user]
 [color]
   ui = true
-[color "diff-highlight"]
-  oldNormal = red bold
-  oldHighlight = red bold 52
-  newNormal = green bold
-  newHighlight = green bold 22
-[color "diff"]
-  meta = 11
-  frag = magenta bold
-  commit = yellow bold
-  old = red bold
-  new = green bold
-  whitespace = red reverse
 [format]
   pretty = oneline
 [alias]
   ls = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
   ll = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --decorate --numstat
-  lf = log --follow --summary --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --
-  lfdet = log --follow --summary -p --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --
+  lf = log --follow --summary --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' -- 
+  lfdet = log --follow --summary -p --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' -- 
   create-tar-branch = "!f() { git archive --output=$1 $2; }; f"
   create-diff-father-son-tar = "!f() { git diff-tree -r --no-commit-id --name-only --diff-filter=ACMRT $1^ $2 | xargs tar -rf $3; }; f"
   showdiff-father-son = "!f() { git diff-tree -r --name-only $1^ $2; }; f"
@@ -27,6 +15,32 @@
   pr-clean = "!git checkout master ; git for-each-ref refs/heads/pr/* --format=\"%(refname)\" | while read ref ; do branch=${ref#refs/heads/} ; git branch -D $branch ; done"
 [core]
   editor = vim -f
-  autocrlf = input
+  autocrlf = false
   safecrlf = true
-  pager = diff-so-fancy | less -FRSX
+  pager = "{                                                         \
+    COLUMNS=$(tput cols);                                            \
+    if [ $COLUMNS -ge 80 ] && [ -z $FZF_PREVIEW_COLUMNS ]; then      \
+        delta --side-by-side -w $COLUMNS;                            \
+    elif [ $COLUMNS -ge 160 ] && [ ! -z $FZF_PREVIEW_COLUMNS ]; then \
+        delta --side-by-side -w $FZF_PREVIEW_COLUMNS;                \
+    else                                                             \
+        delta;                                                       \
+    fi                                                               \
+}"
+[merge]
+  tool = vimdiff
+  conflictstyle = diff3
+[mergetool]
+  prompt = false
+[commit]
+  gpgsign = true
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  features = line-numbers decorations
+  whitespace-error-style = 22 reverse
+  syntax-theme = gruvbox
+[delta "decorations"]
+  commit-decoration-style = bold yellow box ul
+  file-style = bold yellow ul
+  file-decoration-style = none
