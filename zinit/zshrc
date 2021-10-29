@@ -128,9 +128,6 @@ zinit ice from"gh-r" as"program" mv"tmux* -> tmux" pick"tmux" atload"alias tmux=
 zinit light tmux/tmux
 # ZSH MANYDOTS MAGIC
 zinit autoload'#manydots-magic' for knu/zsh-manydots-magic
-# TREE-SITTER
-zinit ice as"program" from"gh-r" mv"tree* -> tree-sitter" pick"tree-sitter"
-zinit light tree-sitter/tree-sitter
 # XURLS
 zinit ice as"program" from"gh-r" mv"xurls* -> xurls" pick"xurls"
 zinit light mvdan/xurls
