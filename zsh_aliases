@@ -3,6 +3,7 @@ alias route-del-default='sudo ip r del default'
 # COMANDI ALTERNATIVI
 alias :q="exit"
 alias n="nvim"
+alias vim="nvim"
 alias ranger="ranger.py"
 alias del="trash-put"
 alias tar-comp="_tar_comp"
