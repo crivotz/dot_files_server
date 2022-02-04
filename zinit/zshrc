@@ -126,7 +126,7 @@ zinit light sharkdp/fd
 # zinit ice from"gh-r" as"program" mv"tmux* -> tmux" pick"tmux" atload"alias tmux=tmux"
 # zinit light tmux/tmux
 # ZSH MANYDOTS MAGIC
-zinit autoload'#manydots-magic' for knu/zsh-manydots-magic
+zinit lucid wait"0c" autoload'#manydots-magic' for knu/zsh-manydots-magic
 # XURLS
 zinit ice as"program" from"gh-r" mv"xurls* -> xurls" pick"xurls"
 zinit light mvdan/xurls
