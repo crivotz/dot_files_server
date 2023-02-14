@@ -5,6 +5,8 @@
   pretty = oneline
 [alias]
   ls = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  atk = log --graph --pretty=format:'%s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+  commitsAtDate = "!f() { git log --pretty='format: - %s' --decorate --after=\"$1 0:00\" --before=\"$1 23:59\" --author \"`git config user.name`\"; }; f"
   ll = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --decorate --numstat
   lf = log --follow --summary --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' -- 
   lfdet = log --follow --summary -p --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' -- 
@@ -14,8 +16,8 @@
   pr = "!f() { git fetch -fu ${2:-upstream} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
   pr-clean = "!git checkout master ; git for-each-ref refs/heads/pr/* --format=\"%(refname)\" | while read ref ; do branch=${ref#refs/heads/} ; git branch -D $branch ; done"
 [core]
-  editor = vim -f
-  autocrlf = false
+  editor = nvim -f
+	autocrlf = false
   safecrlf = true
   pager = "{                                                         \
     COLUMNS=$(tput cols);                                            \
@@ -27,6 +29,7 @@
         delta;                                                       \
     fi                                                               \
 }"
+[github]
 [merge]
   tool = vimdiff
   conflictstyle = diff3
@@ -39,8 +42,12 @@
 [delta]
   features = line-numbers decorations
   whitespace-error-style = 22 reverse
-  syntax-theme = gruvbox
+  syntax-theme = gruvbox-dark
 [delta "decorations"]
   commit-decoration-style = bold yellow box ul
   file-style = bold yellow ul
   file-decoration-style = none
+[pull]
+	rebase = false
+[init]
+	defaultBranch = main
