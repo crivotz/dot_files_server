@@ -34,13 +34,16 @@ zinit light zsh-users/zsh-autosuggestions
 zinit ice wait="0b" lucid
 zinit light b4b4r07/enhancd
 export ENHANCD_FILTER=fzf:fzy:peco
+# ZOXIDE
+zinit ice wait="0" lucid from="gh-r" as="program" pick="zoxide-*/zoxide -> zoxide" cp="zoxide-*/completions/_zoxide -> _zoxide" atclone="./zoxide init zsh > init.zsh" atpull="%atclone" src="init.zsh"
+zinit light ajeetdsouza/zoxide
 # HISTORY SUBSTRING SEARCHING
-zinit ice wait="0b" lucid atload'bindkey "$terminfo[kcuu1]" history-substring-search-up; bindkey "$terminfo[kcud1]" history-substring-search-down'
-zinit light zsh-users/zsh-history-substring-search
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-bindkey -M vicmd 'k' history-substring-search-up
-bindkey -M vicmd 'j' history-substring-search-down
+# zinit ice wait="0b" lucid atload'bindkey "$terminfo[kcuu1]" history-substring-search-up; bindkey "$terminfo[kcud1]" history-substring-search-down'
+# zinit light zsh-users/zsh-history-substring-search
+# bindkey '^[[A' history-substring-search-up
+# bindkey '^[[B' history-substring-search-down
+# bindkey -M vicmd 'k' history-substring-search-up
+# bindkey -M vicmd 'j' history-substring-search-down
 # TAB COMPLETIONS
 zinit ice wait="0b" lucid blockf
 zinit light zsh-users/zsh-completions
@@ -74,9 +77,9 @@ zinit light ms-jpq/sad
 # SYNTAX HIGHLIGHTING
 zinit ice wait="0c" lucid atinit="zpcompinit;zpcdreplay"
 zinit light zdharma-continuum/fast-syntax-highlighting
-# EXA
-zinit ice wait="2" lucid from="gh-r" as="program" mv="bin/exa* -> exa"
-zinit light ogham/exa
+# EZA
+zinit ice wait="2" lucid from="gh-r" as="program" ver="v0.18.7"
+zinit light eza-community/eza
 zinit ice wait blockf atpull'zinit creinstall -q .'
 # DELTA
 zinit ice lucid wait="0" as="program" from="gh-r" bpick="*amd64.deb" pick="usr/bin/delta"
@@ -130,7 +133,7 @@ zinit load denilsonsa/prettyping
 # ASDF
 # asdf plugin add ruby https://github.com/asdf-vm/asdf-ruby.git
 # asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
-zinit ice lucid wait="0" pick="asdf.sh"
+zinit ice lucid wait="0" src="asdf.sh"
 zinit light asdf-vm/asdf
 # CROC
 zinit ice lucid wait="0" as="program" from="gh-r" bpick="*64bit*"
@@ -138,6 +141,18 @@ zinit light schollz/croc
 # ERDTREE
 zinit ice lucid wait"0" as"program" from"gh-r"
 zinit light solidiquis/erdtree
+# GTRASH
+zinit ice lucid wait"0" as"program" from"gh-r"
+zinit light umlx5h/gtrash
+# ATUIN
+zinit ice as"program" from"gh-r" pick="**/atuin" ver="v18.2.0"
+zinit light atuinsh/atuin
+# YAZI
+zinit ice lucid wait"0" as"program" from"gh-r" bpick="*gnu.zip" pick="*/yazi"
+zinit light sxyazi/yazi
+# SERPL
+zinit ice lucid wait"0" as"program" from"gh-r"
+zinit light yassinebridi/serpl
 #########################################################################
 # HISTORY
 #########################################################################
@@ -188,7 +203,7 @@ export PAGER='less'
 export SHELL='/bin/zsh'
 export LANG='it_IT.UTF-8'
 export LC_ALL='it_IT.UTF-8'
-export BAT_THEME="gruvbox-dark"
+# export BAT_THEME="gruvbox-dark"
 if [[ ! $(tmux ls) ]] 2> /dev/null; then 
   tmux new -s λ
 fi
@@ -201,6 +216,18 @@ autoload colors && colors
 # ALIASES
 #########################################################################
 source $HOME/.zsh_aliases
+
+#########################################################################
+# YAZI
+#########################################################################
+function ya() {
+  local tmp="$(mktemp -t "yazi-cwd.XXXXX")"
+  yazi "$@" --cwd-file="$tmp"
+  if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+    cd -- "$cwd"
+  fi
+  rm -f -- "$tmp"
+}
 
 #########################################################################
 # FANCY-CTRL-Z
@@ -228,20 +255,30 @@ export FZF_DEFAULT_OPTS="
 --ansi
 --layout=default
 --info=inline
+--color 16
 --height=50%
 --multi
 --preview-window=right:50%
 --preview-window=sharp
 --preview-window=cycle
---preview '([[ -f {} ]] && (bat --style=numbers --color=always --theme=gruvbox-dark --line-range :500 {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200'
+--preview '([[ -f {} ]] && (bat --style=numbers --color=always --line-range :500 {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200'
 --prompt='λ -> '
---pointer='|>'
---marker='✓'
---bind 'ctrl-e:execute(nvim {} < /dev/tty > /dev/tty 2>&1)' > selected
---bind 'ctrl-v:execute(code {+})'"
+--pointer='▷'
+--marker='✓'"
+# --bind 'ctrl-e:execute(nvim {} < /dev/tty > /dev/tty 2>&1)' > selected
+# --bind 'ctrl-v:execute(code {+})'"
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
+#########################################################################
+# ATUIN
+#########################################################################
+atuin-setup() {
+  ! hash atuin && return
+  # bindkey '^R' _atuin_search_widget
+  eval "$(atuin init zsh)"
+}
+atuin-setup
 #########################################################################
 # FZF-GC-PROJECT
 #########################################################################
